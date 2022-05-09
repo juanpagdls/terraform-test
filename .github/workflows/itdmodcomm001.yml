@@ -6,7 +6,7 @@ name: 'Terraform'
 
 env:
   environment: 'dev'
-  working-directory: '${{ github.workspace }}/terraform/${{ github.workflow }}/${{ env.resource-name }}'
+  working-directory: '${{ github.workspace }}/terraform/${{ github.workflow }}/staitdjpgcomm004'
   resource-name: 'staitdjpgcomm004'
   resource-group: 'sgtd2weursgitdmodcomm001'
   storage-account: 'sgtd2weustaitdmodcomm001'
