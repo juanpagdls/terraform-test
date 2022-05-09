@@ -1,0 +1,91 @@
+# Pipeline Terraform
+# Documentation for `hashicorp/setup-terraform` is located here: https://github.com/hashicorp/setup-terraform
+#
+
+name: 'Terraform'
+
+env:
+  environment: 'dev'
+  working-directory: '${{ github.workspace }}/terraform/${{ github.workflow }}/${{ env.resource-name }}'
+  resource-name: 'staitdjpgcomm004'
+  resource-group: 'sgtd2weursgitdmodcomm001'
+  storage-account: 'sgtd2weustaitdmodcomm001'
+  container-name: 'tfstate'
+  
+on:
+  push:
+    branches:
+      - terraform-v1
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    environment: dev
+    
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ working-directory }}
+
+    steps:
+    - run: echo "$GITHUB_CONTEXT"
+
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Install the latest version of Terraform CLI 
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+         terraform_version: 1.1.0
+    
+    # Credentials for Terraform Enterprise (TFE) 
+    #- name: Setup
+      #uses: hashicorp/setup-terraform@v2
+      #with:
+        #cli_config_credentials_hostname: 'terraform.example.com'
+        #cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      id: init
+      env:
+        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+        RESOURCE_GROUP: ${{ env.resource-group }}
+        STORAGE_ACCOUNT: ${{ env.storage-account }}
+        CONTAINER_NAME: ${{ env.container-name }}
+      run: terraform init -no-color -backend-config="storage_account_name=$storage-account" -backend-config="container_name=$container-name" -backend-config="resource_group_name=$resource-group"
+     
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
+    
+      # Run a terraform plan for pull requests only
+    - name: Terraform Plan
+      id: plan
+      env:
+        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      #if: github.event_name == 'pull_request'
+      run: terraform plan -no-color -out=${{ github.workflow }}-${{ github.run_id }} -var-file=${{ env.working-directory }}/${{ env.environment }}/${{ env.environment }}.tfvars
+  
+
+    # On push to main, build or change infrastructure according to Terraform configuration files
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      env:
+        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      run: terraform apply -auto-approve
