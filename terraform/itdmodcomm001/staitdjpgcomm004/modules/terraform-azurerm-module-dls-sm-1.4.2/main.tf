@@ -8,7 +8,8 @@ provider "azurerm" {
 
 ############################## Modules ##############################
 module "whitelist" {
-  source = "git::https://github.alm.europe.cloudcenter.corp/sgt-cloudplatform/terraform-azurerm-module-irw"
+  #source = "git::https://github.alm.europe.cloudcenter.corp/sgt-cloudplatform/terraform-azurerm-module-irw"
+   source = "../terraform-azurerm-module-irw-1.3.0"
 }
 
 ############################## Data ##############################
