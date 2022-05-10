@@ -6,6 +6,6 @@ terraform {
     }
   }
   required_version = ">= 1.1.0"
-  #backend "azure" {}
-  backend "local" {}
+  backend "azurerm" {}
+  #backend "local" {}
 }
