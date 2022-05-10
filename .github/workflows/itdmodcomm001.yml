@@ -6,7 +6,6 @@ name: 'Terraform'
 
 env:
   environment: 'dev'
-  working-directory: '${{ github.workspace }}/terraform/${{ github.workflow }}/staitdjpgcomm004'
   resource-name: 'staitdjpgcomm004'
   resource-group: 'sgtd2weursgitdmodcomm001'
   storage-account: 'sgtd2weustaitdmodcomm001'
@@ -29,7 +28,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ${{ env.working-directory }}
+        working-directory: '${{ github.workspace }}/terraform/${{ github.workflow }}/${{ env.resource-name }}'
 
     steps:
     - run: echo "$GITHUB_CONTEXT"
