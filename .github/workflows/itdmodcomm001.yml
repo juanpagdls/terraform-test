@@ -93,7 +93,7 @@ jobs:
         ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
         ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       #if: github.event_name == 'pull_request'
-      run: terraform plan -no-color -out=${{ github.workflow }}-${{ github.run_id }} -var-file=${{ env.working-directory }}/${{ env.environment }}/${{ env.environment }}.tfvars
+      run: terraform plan -no-color -out=${{ github.workflow }}-${{ github.run_id }} -var-file=./${{ env.environment }}/${{ env.environment }}.tfvars
   
 
     # On push to main, build or change infrastructure according to Terraform configuration files
