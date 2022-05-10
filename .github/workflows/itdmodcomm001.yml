@@ -31,8 +31,15 @@ jobs:
         #working-directory: '${{ github.workspace }}/terraform/${{ github.workflow }}/${{ env.resource-name }}'
 
     steps:
-    - run: pwd; find . -type f
-    - run: echo "$GITHUB_CONTEXT"
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github) }}'
+      - name: Dump job context
+        run: echo '${{ toJSON(job) }}'
+      - name: Dump steps context
+        run: echo '${{ toJSON(steps) }}'
+      - name: Dump runner context
+        run: echo '${{ toJSON(runner) }}'
 
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
@@ -43,6 +50,9 @@ jobs:
       uses: hashicorp/setup-terraform@v2
       with:
          terraform_version: 1.1.0
+    
+    - run: pwd
+    - run: find . -type f
     
     # Credentials for Terraform Enterprise (TFE) 
     #- name: Setup
@@ -62,7 +72,7 @@ jobs:
         RESOURCE_GROUP: ${{ env.resource-group }}
         STORAGE_ACCOUNT: ${{ env.storage-account }}
         CONTAINER_NAME: ${{ env.container-name }}
-      run: terraform init -no-color -backend-config="storage_account_name=$storage-account" -backend-config="container_name=$container-name" -backend-config="resource_group_name=$resource-group"
+      run: terraform init -no-color -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
      
     - name: Terraform Validate
       id: validate
