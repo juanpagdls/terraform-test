@@ -2,7 +2,7 @@
 # Documentation for `hashicorp/setup-terraform` is located here: https://github.com/hashicorp/setup-terraform
 #
 
-name: 'Terraform'
+name: 'itdmodcomm001'
 
 env:
   environment: 'dev'
