@@ -1,7 +1,8 @@
 module "module-data-lake-storage-gen2-sm" {
   
-  source  = "git::https://github.alm.europe.cloudcenter.corp/sgt-cloudplatform/terraform-azurerm-module-dls-sm.git?ref=v1.4.2"
-    
+  #source  = "git::https://github.alm.europe.cloudcenter.corp/sgt-cloudplatform/terraform-azurerm-module-dls-sm.git?ref=v1.4.2"
+  source  = "./modules/terraform-azurerm-module-dls-sm-1.4.2"
+
   name                                = var.sta_name
   resource_group                      = var.resource_group
   kvt_name                            = var.kvt_name
