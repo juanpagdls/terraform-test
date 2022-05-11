@@ -15,6 +15,8 @@ on:
   push:
     branches:
       - terraform-v1
+      paths:
+      - '**itdmodcomm001.yml'
 
 permissions:
   contents: read
