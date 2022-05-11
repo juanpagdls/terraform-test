@@ -8,8 +8,7 @@ env:
   environment: 'dev'
   resource-name: 'staitdjpgcomm004'
   resource-group: 'sgtd2weursgitdmodcomm001'
-  #storage-account: 'sgtd2weustaitdmodcomm001'
-  storage-account: 'sgtp2weustaitestccrit002' 
+  storage-account: 'sgtd2weustaitdmodcomm001'
   container-name: 'tfstate'
   
 on:
@@ -22,7 +21,7 @@ permissions:
 
 jobs:
   dump_contexts_to_log:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Dump GitHub context
         id: github_context_step
