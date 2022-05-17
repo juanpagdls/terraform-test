@@ -32,7 +32,7 @@ jobs:
         run: echo '${{ toJSON(runner) }}'
 
   terraform:
-    name: 'Terraform'
+    name: 'Terraform Enterprise'
     runs-on: ubuntu-latest
     environment: dev
     
