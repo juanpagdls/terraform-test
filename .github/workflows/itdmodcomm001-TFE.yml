@@ -11,8 +11,6 @@ on:
   push:
     branches:
       - terraform-v1
-    #paths:
-    #  - '**itdmodcomm001-TFE.yml'
 
 permissions:
   contents: read
@@ -32,7 +30,7 @@ jobs:
         run: echo '${{ toJSON(runner) }}'
 
   terraform:
-    name: 'Terraform Enterprise'
+    name: Terraform-Enterprise
     runs-on: ubuntu-latest
     environment: dev
     
