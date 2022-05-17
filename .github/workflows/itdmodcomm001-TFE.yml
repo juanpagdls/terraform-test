@@ -6,6 +6,7 @@ name: 'itdmodcomm001'
 
 env:
   environment: 'dev'
+  resource-name: 'staitdjpgcomm004'
   
 on:
   push:
@@ -37,6 +38,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: '${{ github.workspace }}/terraform/${{ github.workflow }}/${{ env.resource-name }}'
 
     steps:
     # Checkout the repository to the GitHub Actions runner
