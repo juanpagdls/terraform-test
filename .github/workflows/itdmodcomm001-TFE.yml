@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   dump_contexts_to_log:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Dump GitHub context
         id: github_context_step
@@ -32,7 +32,7 @@ jobs:
 
   terraform:
     name: Terraform-Enterprise
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment: dev
     
     defaults:
@@ -49,7 +49,7 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
       with:
-        #cli_config_credentials_hostname: 'tfe1.sgtech.corp'
+        cli_config_credentials_hostname: 'tfe1.sgtech.corp'
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
     
      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
