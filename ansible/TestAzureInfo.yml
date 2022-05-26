@@ -1,0 +1,22 @@
+- name: Manage Azure locks
+  hosts: 127.0.0.1
+  connection: local
+
+  tasks:
+  - name: Start message
+    ansible.builtin.debug:
+      msg: 'Test Azure'
+
+# Get info 
+  - name: Get facts for one resource group
+    azure_rm_resourcegroup_info:
+      name: sgtd2weursgitdmodcomm001
+      list_resources: yes
+    register: itd_info
+
+# Debug info RGs
+
+  - name: INFO RG
+    ansible.builtin.debug:
+      msg: 'Rg Info -> {{ itd_info }}'
+    
