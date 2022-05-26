@@ -16,7 +16,7 @@ on:
     branches:
       - terraform-v1
       paths:
-      - '**itdmodcomm001.yml'
+      - '.github/workflows/itdmodcomm001.yml'
 
 permissions:
   contents: read

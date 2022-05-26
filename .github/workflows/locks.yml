@@ -6,17 +6,13 @@ name: 'locks'
 
 env:
   environment: 'dev'
-  resource-name: 'staitdjpgcomm004'
-  resource-group: 'sgtd2weursgitdmodcomm001'
-  storage-account: 'sgtd2weustaitdmodcomm001'
-  container-name: 'tfstate'
-  
+
 on:
   push:
     branches:
       - terraform-v1
       paths:
-      - '**locks.yml'
+      - '.github/workflows/locks.yml'
 
 jobs:
   dump_contexts_to_log:
@@ -35,12 +31,6 @@ jobs:
   ansible:
     name: 'Ansible'
     runs-on: self-hosted
-    environment: dev
-    
-    defaults:
-      run:
-        shell: bash
-        #working-directory: '${{ github.workspace }}/terraform/${{ github.workflow }}/${{ env.resource-name }}'
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v3

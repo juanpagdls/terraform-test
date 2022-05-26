@@ -12,6 +12,8 @@ on:
   push:
     branches:
       - terraform-v1
+      paths:
+      - '.github/workflows/itdmodcomm001-TFE.yml'
 
 permissions:
   contents: read
