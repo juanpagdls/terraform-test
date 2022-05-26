@@ -35,19 +35,19 @@ jobs:
     - uses: actions/checkout@v3
     
     - name: Setup Python 
-    - uses: actions/setup-python@v3
+      uses: actions/setup-python@v3
       with:
         python-version: '3.9'
 
     - name: Install Ansible
-    - run: |
+      run: |
         python -m pip install ansible
         ansible --version
 
     - name: Install Azure Collection
-    - run: |
+      run: |
         ansible-galaxy collection install azure.azcollection --force
         pip install -r ~/.ansible/collections/ansible_collections/azure/azcollection/requirements-azure.txt
     
     - name: Run test Playbook
-    - run: ansible-playbook ./ansible/hola.yml
+      run: ansible-playbook ./ansible/hola.yml
