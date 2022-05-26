@@ -11,7 +11,7 @@ on:
   push:
     branches:
       - terraform-v1
-      paths:
+    paths:
       - '.github/workflows/locks.yml'
 
 jobs:
