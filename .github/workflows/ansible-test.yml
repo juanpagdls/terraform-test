@@ -64,22 +64,27 @@ jobs:
         ansible-galaxy collection install azure.azcollection --force
         pip install -r ~/.ansible/collections/ansible_collections/azure/azcollection/requirements-azure.txt
     
-    - name: Export environment variables
-      env:
-        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      run: |
-        echo "ARM_CLIENT_ID=$ARM_CLIENT_ID" >> $GITHUB_ENV
-        echo "ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET" >> $GITHUB_ENV
-        echo "ARM_TENANT_ID=$ARM_TENANT_ID" >> $GITHUB_ENV
-        echo "ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID" >> $GITHUB_ENV
+    #- name: Export environment variables
+    #  env:
+    #    ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+    #    ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+    #    ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+    #    ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+    #  run: |
+    #    echo "ARM_CLIENT_ID=$ARM_CLIENT_ID" >> $GITHUB_ENV
+    #    echo "ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET" >> $GITHUB_ENV
+    #    echo "ARM_TENANT_ID=$ARM_TENANT_ID" >> $GITHUB_ENV
+    #    echo "ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID" >> $GITHUB_ENV
       
-    - name: Debug
-      run: |
-        env
-        echo "${{ env.ARM_CLIENT_ID }}" 
+    #- name: Debug
+    #  run: |
+    #    env
+    #    echo "${{ env.ARM_CLIENT_ID }}" 
     
     - name: Run test Azure
+      env:
+        ARM_CLIENT_ID: ID
+        ARM_CLIENT_SECRET: xxxxxxxxxxxxxxxxxxxxxx
+        ARM_TENANT_ID: T_ID
+        ARM_SUBSCRIPTION_ID: S_ID
       run: ansible-playbook ./ansible/TestAzureInfo.yml
