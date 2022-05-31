@@ -6,4 +6,4 @@
   tasks:
   - name: Start message
     ansible.builtin.debug:
-      msg: 'Bienvenidos a Github Actions! '
+      msg: 'Bienvenidos a Github Actions! Tu parametro es {{ PARAM }} '
