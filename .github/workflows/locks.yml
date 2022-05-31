@@ -7,12 +7,24 @@ name: 'locks'
 env:
   environment: 'dev'
 
-on:
-  push:
-    branches:
-      - terraform-v1
-    paths:
-      - '.github/workflows/locks.yml'
+on: 
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Parametro de prueba'     
+        required: true
+        default: 'check' 
+        type: choice
+        options:
+        - start
+        - stop
+        - check 
+#on:
+#  push:
+#    branches:
+#      - terraform-v1
+#    paths:
+#      - '.github/workflows/locks.yml'
 
 jobs:
   dump_contexts_to_log:
@@ -46,6 +58,11 @@ jobs:
     
     - name: Run test Playbook
       run: ansible-playbook ./ansible/hola.yml
+
+    - name: Azure CLI
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.36.0
 
     - name: Install Azure Collection
       run: |
