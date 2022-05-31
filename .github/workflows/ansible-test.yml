@@ -66,20 +66,20 @@ jobs:
     
     - name: Export environment variables
       env:
-        ARM_CLIENT_ID: IDddddddddddddddd
-        ARM_CLIENT_SECRET: xxxxxxxxxxxxxxxxxxxxxx
-        ARM_TENANT_ID: T_IDddddddddddddd
-        ARM_SUBSCRIPTION_ID: S_IDddddddddddddddd
+        AZURE_CLIENT_ID: IDddddddddddddddd
+        AZURE_SECRET: xxxxxxxxxxxxxxxxxxxxxx
+        AZURE_TENANT: T_IDddddddddddddd
+        AZURE_SUBSCRIPTION_ID: S_IDddddddddddddddd
       run: |
-        echo "ARM_CLIENT_ID=$ARM_CLIENT_ID" >> $GITHUB_ENV
-        echo "ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET" >> $GITHUB_ENV
-        echo "ARM_TENANT_ID=$ARM_TENANT_ID" >> $GITHUB_ENV
-        echo "ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID" >> $GITHUB_ENV
+        echo "AZURE_CLIENT_ID=$AZURE_CLIENT_ID" >> $GITHUB_ENV
+        echo "AZURE_SECRET=$AZURE_SECRET" >> $GITHUB_ENV
+        echo "AZURE_TENANT=$AZURE_TENANT" >> $GITHUB_ENV
+        echo "AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID" >> $GITHUB_ENV
       
     - name: Debug
       run: |
         env
-        echo "${{ env.ARM_CLIENT_ID }}" 
+        echo "${{ env.AZURE_CLIENT_ID }}" 
     
     - name: Run test Azure
       run: ansible-playbook ./ansible/TestAzureInfo.yml
