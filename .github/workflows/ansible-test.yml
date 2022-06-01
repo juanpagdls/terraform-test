@@ -56,8 +56,8 @@ jobs:
           PARAM: ${{ github.event.inputs.action }}
       run: ansible-playbook ./ansible/hola.yml -e PARAM=$PARAM
 
-    - name: Install Azure CLI
-      run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+    #- name: Install Azure CLI
+    #  run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
     - name: Install Azure Collection
       run: |
